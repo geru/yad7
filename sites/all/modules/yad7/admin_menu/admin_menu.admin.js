@@ -1,4 +1,8 @@
-(function($) {
+/**
+ * @file
+ */
+
+(function ($) {
 
 /**
  * Live preview of Administration menu components.

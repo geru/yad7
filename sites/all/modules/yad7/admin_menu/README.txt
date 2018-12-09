@@ -1,6 +1,6 @@
 CONTENTS OF THIS FILE
 ---------------------
-   
+
  * Introduction
  * Requirements
  * Installation
@@ -181,6 +181,16 @@ FAQ
     Ideally, the function is called in hook_init() in a custom module.  If you
     do not have a custom module, placing it into some conditional code at the
     top of template.php may work out, too.
+
+
+Q: What does the "Administration Development Tools" module do?
+
+A: The Administration Development Tools adds a jQuery Debugger which allows
+   a developer to debug and inspect arbitrary data/variables in Firebug's
+   console, and also to access them again in the global window object
+   (optionally using a named identifier, e.g. window.debug.myValue).
+   Chainable via jQuery. Especially useful for re-accessing and debugging
+   selected data via Firebug's console.
 
 
 MAINTAINERS

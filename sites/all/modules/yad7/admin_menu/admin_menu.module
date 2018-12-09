@@ -230,7 +230,7 @@ function admin_menu_page_build(&$page) {
   if ($_GET['q'] == 'admin/modules' || strpos($_GET['q'], 'admin/modules/list') === 0) {
     $settings['tweak_modules'] = variable_get('admin_menu_tweak_modules', 0);
   }
-  if ($_GET['q'] == 'admin/people/permissions' || $_GET['q'] == 'admin/people/permissions/list') {
+  if (strpos($_GET['q'], 'admin/people/permissions') === 0) {
     $settings['tweak_permissions'] = variable_get('admin_menu_tweak_permissions', 0);
   }
 

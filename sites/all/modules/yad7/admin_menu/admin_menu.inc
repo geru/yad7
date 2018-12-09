@@ -269,7 +269,7 @@ function admin_menu_translate($router_item, $map) {
     // replace any other.
     // @todo Doing this instead leads to plenty of duplicate links below
     //   admin/structure/menu; likely a hidden recursion problem.
-    // $router_item['mlid'] = $router_item['href'] . $router_item['mlid'];
+    // $router_item['mlid'] = $router_item['href'] . $router_item['mlid'];.
     $router_item['mlid'] = $router_item['href'];
     // Turn menu callbacks into regular menu items to make them visible.
     if ($router_item['type'] == MENU_CALLBACK) {
@@ -278,10 +278,12 @@ function admin_menu_translate($router_item, $map) {
 
     // @see _menu_tree_check_access()
     $key = (50000 + $router_item['weight']) . ' ' . $router_item['title'] . ' ' . $router_item['mlid'];
-    return array($key => array(
-      'link' => $router_item,
-      'below' => array(),
-    ));
+    return array(
+      $key => array(
+        'link' => $router_item,
+        'below' => array(),
+      ),
+    );
   }
 
   return array();
@@ -770,18 +772,20 @@ function admin_menu_flush_cache($name = NULL) {
     if (!isset($caches[$name])) {
       return MENU_NOT_FOUND;
     }
+    $message = t('@title cache cleared.', array('@title' => $caches[$name]['title']));
   }
   else {
     $caches[$name] = array(
       'title' => t('Every'),
       'callback' => 'drupal_flush_all_caches',
     );
+    $message = t('All caches cleared.');
   }
   // Pass the cache to flush forward to the callback.
   $function = $caches[$name]['callback'];
   $function($name);
 
-  drupal_set_message(t('@title cache cleared.', array('@title' => $caches[$name]['title'])));
+  drupal_set_message($message);
 
   // The JavaScript injects a destination request parameter pointing to the
   // originating page, so the user is redirected back to that page. Without
