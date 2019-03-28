@@ -338,7 +338,7 @@ function _drupal_default_html_head() {
     '#tag' => 'meta',
     '#attributes' => array(
       'name' => 'Generator',
-      'content' => 'Yad7 ' . $version . ' (http://yad7.org)',
+      'content' => 'YAD7 ' . $version . ' (http://yad7.org)',
     ),
   );
   // Also send the generator in the HTTP header.
