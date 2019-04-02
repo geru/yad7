@@ -1,6 +1,0 @@
-name = Administration menu Adminimal Theme
-description = Clean and minimal theme for the administration menu module.
-package = Administration
-core = 7.x
-dependencies[] = admin_menu
-configure = admin/config/administration/adminimal_menu

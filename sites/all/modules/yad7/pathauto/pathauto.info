@@ -1,9 +1,0 @@
-name = Pathauto
-description = Provides a mechanism for modules to automatically generate aliases for the content they manage.
-dependencies[] = path
-dependencies[] = token
-core = 7.x
-files[] = pathauto.migrate.inc
-files[] = pathauto.test
-configure = admin/config/search/path/patterns
-recommends[] = redirect
