@@ -763,7 +763,7 @@ function filter_list_format($format_id) {
  *
  * @ingroup sanitization
  */
-function check_markup($text, $format_id = NULL, $langcode = '', $cache = FALSE) {
+function check_markup($text, $format_id = NULL, $langcode = '', $cache = FALSE, $entity = NULL) {
   if (!isset($format_id)) {
     $format_id = filter_fallback_format();
   }
@@ -795,7 +795,7 @@ function check_markup($text, $format_id = NULL, $langcode = '', $cache = FALSE) 
   foreach ($filters as $name => $filter) {
     if ($filter->status && isset($filter_info[$name]['prepare callback']) && function_exists($filter_info[$name]['prepare callback'])) {
       $function = $filter_info[$name]['prepare callback'];
-      $text = $function($text, $filter, $format, $langcode, $cache, $cache_id);
+      $text = $function($text, $filter, $format, $langcode, $cache, $cache_id, $entity);
     }
   }
 
@@ -803,7 +803,7 @@ function check_markup($text, $format_id = NULL, $langcode = '', $cache = FALSE) 
   foreach ($filters as $name => $filter) {
     if ($filter->status && isset($filter_info[$name]['process callback']) && function_exists($filter_info[$name]['process callback'])) {
       $function = $filter_info[$name]['process callback'];
-      $text = $function($text, $filter, $format, $langcode, $cache, $cache_id);
+      $text = $function($text, $filter, $format, $langcode, $cache, $cache_id, $entity);
     }
   }
 
