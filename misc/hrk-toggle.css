@@ -1,0 +1,444 @@
+/* hrk-toggle
+   Copyright 2019 Hugh Kern -- hkern0.com
+   MIT license -- https://opensource.org/licenses/MIT */
+
+/* generic helper classes */
+.hrk-float-left {
+    float: left;
+}
+.hrk-float-right {
+    float: right;
+}
+.hrk-display-inlineblock {
+    display: inline-block;
+}
+.hrk-flex-row { /* define horizontal flex */
+    display: flex;
+    flex-direction: row;
+}
+.hrk-flex-column { /* define horizontal flex */
+    display: flex;
+    flex-direction: column;
+}
+.hrk-flex-main-item {
+    flex: 1 100%;
+}
+.hrk-margin-none {
+    margin: 0;
+}
+.hrk-margin-medium {
+    margin: 1rem;
+}
+.hrk-padding-none {
+    padding: 0;
+}
+.hrk-padding-medium {
+    padding: 1rem;
+}
+
+
+/* responsive navbar */
+.hrk-bar {
+    display: flex;
+    flex-flow: row wrap;
+/*    z-index: 900;*/
+}
+.hrk-bar::after {
+    clear: none;
+}
+.hrk-navbar { /* the whole navbar w. responsive and non-responsive parts */
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    position: relative;
+    background: rgba(250,250,250,.98)
+}
+.hrk-toggle { /* the input checkbox or radio that a submenu is attached to. navbar toggle also gets hrk-bar-toggle class */
+    display: none;
+}
+.hrk-menu-responsive { /* responsive menu disappears as standard and goes vertical for mobile first */
+    display: none;
+    order: 5;
+    flex: 1 100%;
+    flex-direction: column;
+    background: inherit;
+    /* z-index: 50; */
+}
+.hrk-menu-perm {
+    display: flex;
+    flex-direction: row;
+}
+.hrk-toggle + label {
+    display: inline-block;
+    cursor: pointer;
+    width: 1.5rem;
+    align-self: flex-start;
+    padding: .5rem;
+    text-align: center;
+    font-size: small;
+    color: black;
+}
+.hrk-bar-toggle:checked ~ .hrk-menu-responsive {  /* the responsive menu is labeled with class hrk-menu */
+    display: flex;
+    /* background: inherit; */
+    z-index: 10;
+    border: thin solid;
+}
+.hrk-bar-toggle + label:before { /* make sure the navbar toggle and label are a block */
+    display: block !important;
+}
+.hrk-bar-perm, .hrk-bar-toggle + label { /* nonresponsive parts of the menu are just flex */
+    flex: auto;
+    /*  z-index: 100;  allow it to be forefront even if some special effects are happening */
+}
+.hrk-bar-first {
+    order: -1;
+}
+.hrk-bar-last { /* move a navbar item to the end of the lst */
+    order: 100;
+}
+.hrk-bar-toggle + label { /* give the navbar hamburger some size and margins and make the cursor point into */
+    display: inline;
+    cursor: pointer;
+    /*font-size: 1.5rem;*/
+    padding: .75rem 1rem;
+    width: unset;
+}
+.hrk-bar > .hrk-toggle-label {
+    margin-left: -2rem;
+}
+.hrk-navbar > .hrk-menu-responsive {
+    position: absolute;
+    /* z-index: 990 !important; */
+}
+.hrk-navbar > .hrk-menu {
+    top: 3rem;
+}
+.hrk-menu > .hrk-tree,
+.hrk-menu > .hrk-leaf {
+    margin-right: 1rem;
+}
+.hrk-bar-extramenu li {
+    list-style-type: none;
+}
+/*.hrk-bar-extramenu > a, .hrk-bar-extramenu > span.hrk-a,*/
+.hrk-navbar > .hrk-bar-item > a, .hrk-navbar > .hrk-bar-item > span.hrk-a { /* all navbar top bar links get look and feel */
+    margin-top: -.3rem;
+    padding: 1rem;
+    width: auto;
+}
+.hrk-menu > .hrk-tree > .hrk-tree-node > a, .hrk-menu > .hrk-tree > .hrk-tree-node > span.hrk-a,
+.hrk-menu .hrk-leaf > *,
+.hrk-bar-item a, .hrk-bar-item span.hrk-a {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    text-decoration: none;
+    display: inline-block;
+}
+.hrk-menu > .hrk-leaf > * {
+    padding: 0.5rem;
+}
+/* dropdown menu containers */
+.hrk-menu > .hrk-tree > .hrk-tree-node .hrk-tree-children > .hrk-tree > .hrk-tree-node,
+.hrk-menu > .hrk-tree > .hrk-tree-node .hrk-leaf {
+   /* min-width: 80%; */
+}
+/* dropdown menu items
+.hrk-menu > .hrk-tree > .hrk-tree-node .hrk-tree-children > .hrk-tree > .hrk-tree-node > *,
+.hrk-menu > .hrk-tree > .hrk-tree-node .hrk-leaf > * {
+    min-width: 80%;
+} */
+.hrk-bar-item > a:hover,
+.hrk-bar-item > span.hrk-a:hover {
+    background: rgba(120, 120, 120, .2);
+    /* border-radius: .5rem .5rem .5rem .5rem; */
+}
+.hrk-tree-node .hrk-tree-children a,
+.hrk-tree-node .hrk-tree-children span.hrk-a,
+.hrk-navbar > .hrk-bar-item .hrk-bar-extramenu a,
+.hrk-navbar > .hrk-bar-item .hrk-bar-extramenu span.hrk-a,
+.hrk-menu > .hrk-tree > .hrk-tree-node > a,
+.hrk-menu > .hrk-tree > .hrk-tree-node > span.hrk-a { /* all navbar lower bar links get look and feel */
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    text-decoration: none;
+    display: inline-block;
+}
+.hrk-tree-node .hrk-leaf a,
+.hrk-tree-node .hrk-leaf span.hrk-a {
+    padding: .5rem .7rem;
+}
+.hrk-tree-node .hrk-tree > .hrk-tree-node > a,
+.hrk-tree-node .hrk-tree > .hrk-tree-node > span.hrk-a,
+.hrk-navbar > .hrk-bar-item .hrk-bar-extramenu a,
+.hrk-navbar > .hrk-bar-item .hrk-bar-extramenu span.hrk-a,
+.hrk-menu > .hrk-tree > .hrk-tree-node > a,
+.hrk-menu > .hrk-tree > .hrk-tree-node > span.hrk-a { /* all navbar lower bar links get look and feel */
+    padding: .5rem .5rem .5rem 0;
+}
+.hrk-navbar > label:hover,
+.hrk-tree:hover,
+.hrk-tree:hover > .hrk-node > a,
+.hrk-tree:hover > .hrk-node > span.hrk-a,
+.hrk-menu .hrk-leaf:hover,
+.hrk-bar > label:hover {
+    background: rgba(120,120,120,.2);
+    border-radius: 0.5rem .5rem 0.5rem 0;
+}
+.hrk-navbar > .hrk-menu > .hrk-tree > label:hover {
+    background: rgba(220,220,220,1); /* label needs to be opaque to cover close toggle */
+    border-radius: 0.5rem .5rem 0.5rem 0;
+}
+.hrk-tree-node > .hrk-tree-children {
+    margin-left: -1rem;
+}
+.hrk-menu > .hrk-tree > .hrk-tree-node > .hrk-tree-children {
+    margin-left: -2rem;
+    /* padding-left: 1rem; */
+}
+
+/* toggle */
+.hrk-tree {
+    display: flex;
+    flex-flow: row;
+    align-items: stretch;
+/*    z-index: 10;*/
+}
+.hrk-navbar > .hrk-menu > .hrk-tree > .hrk-tree-node > a,
+.hrk-navbar > .hrk-menu > .hrk-tree > .hrk-tree-node > span.hrk-a,
+.hrk-navbar > .hrk-menu > .hrk-tree > label,
+.hrk-navbar > .hrk-menu > .hrk-leaf > * {
+    /*   padding-top: 1rem;
+    border-radius: .5rem; */
+}
+.hrk-navbar > .hrk-menu > .hrk-tree > label {
+    margin-left: -2.5rem;
+    background: rgba(250,250,250,1);
+}
+.hrk-tree-node, .hrk-leaf {
+    display: inline-block;
+    vertical-align: middle;
+    -webkit-backface-visibility: hidden;
+    align-self: flex-start;
+}
+.hrk-bar-extramenu ul,
+.hrk-tree-children > .hrk-leaf {
+    margin-left: 1.85rem;
+/*    min-width: 10rem;*/
+}
+.hrk-menu > .hrk-leaf {
+    margin-left: 2rem;
+    margin-right: .5rem;
+}
+.hrk-bar-extramenu,
+.hrk-tree-children {
+    display: none;
+    order: 5;
+    flex: 1 100%;
+    position: relative;
+    background: rgba(255,255,255,.98);
+    border: .1rem solid #eee;
+}
+.hrk-menu > .hrk-tree > .hrk-tree-node > .hrk-tree-children,
+.hrk-bar-item .hrk-bar-extramenu,
+.hrk-menu-active {
+    border-radius: 0 .5rem .5rem .5rem;
+}
+.hrk-bar-last > .hrk-tree > .hrk-tree-node > .hrk-tree-children {
+    position: fixed;
+    right: 1rem;
+}
+
+.hrk-bar-extramenu,
+.hrk-toggle:checked ~ .hrk-tree-node > .hrk-tree-children {
+    display: flex;
+    flex-direction: column;
+    z-index: 50;
+}
+.hrk-toggle-close-menu > input[type="radio"].hrk-toggle:checked + label {
+    display: inline-block;
+    z-index: 50;
+}
+.hrk-toggle-close-menu + input[type="radio"].hrk-toggle:checked + label {
+    /* display: none; */
+    z-index: 50;
+}
+.hrk-toggle-close-menu > input[type="radio"].hrk-toggle + label {
+    /* margin-left: -1.85rem; */
+}
+.hrk-toggle-close-menu {
+    align-self: flex-start;
+}
+.hrk-toggle-close-menu > label {
+    padding: .5rem;
+}
+
+.hrk-toggle-close-menu > .hrk-toggle + .hrk-toggle-fmt-x:before {
+    content: '⨯'; /*'⋁'; /*'▾''▽'; /*'x';*/
+}
+.hrk-toggle-close-menu > .hrk-toggle:checked + .hrk-toggle-fmt-x {
+    display: inline-block;
+    z-index: 50;
+}
+.hrk-toggle-close-menu > .hrk-toggle + .hrk-toggle-fmt-caret:before {
+    font-family: "Times New Roman", serif;
+    content: '▼';
+/*    content: '⨯'; /*'⋁'; /*'▾''▽'; /*'x';*/
+}
+.hrk-toggle-close-menu > .hrk-toggle:checked + .hrk-toggle-fmt-caret {
+    display: inline-block;
+    z-index: 50;
+}
+/* default opener / closer is just text +/- */
+.hrk-toggle + label.hrk-toggle-fmt-caret:before {
+    font-family: "Times New Roman", serif;
+    content: '►';
+}
+.hrk-toggle:checked + label.hrk-toggle-fmt-caret:before {
+    font-family: "Times New Roman", serif;
+    content: '▼';
+    z-index: 50;
+}
+/* default opener / closer is just text +/- */
+.hrk-toggle + label.hrk-toggle-fmt-plusminus:before {
+    content: '+';
+}
+.hrk-toggle:checked + label.hrk-toggle-fmt-plusminus:before {
+    content: '–'; /*'—';*/
+    z-index: 50;
+}
+/* toggle option: put svg icons, text or anything else into on/off spans */
+.hrk-toggle:checked + label.hrk-toggle-fmt-onoff > .hrk-toggle-fmt-onoff-on {
+    display: none;
+}
+.hrk-toggle + label.hrk-toggle-fmt-onoff > .hrk-toggle-fmt-onoff-off {
+    display: none;
+}
+/* toggle option: text-based carets */
+.hrk-toggle:checked + label.hrk-toggle-fmt-onoff > .hrk-toggle-fmt-onoff-off {
+    display: initial;
+}
+/* make off toggle not display in favor of close button when radio */
+input[type="radio"].hrk-toggle:checked + label {
+    display: none;
+}
+.hrk-toggle + label.hrk-toggle-fmt-ellipsis:before {
+    font-weight: 900;
+    content: "...";
+}
+.hrk-toggle:checked + label.hrk-toggle-fmt-ellipsis:before {
+    font-weight: 900;
+    content: "X";
+    z-index: 50;
+}
+.hrk-toggle-fmt-paginav {
+    margin-right: 0;
+}
+.hrk-toggle + label.hrk-toggle-fmt-paginav:before {
+    font-weight: 900;
+    content: "◃ | ▹";
+}
+.hrk-toggle:checked + label.hrk-toggle-fmt-paginav:before {
+    font-weight: 900;
+    content: "X"; /* ▵ */
+    z-index: 50;
+}
+.hrk-toggle + label {
+    font-size: 100%;
+    color: rgba(120, 120, 120, .8);
+}
+.hrk-navbar svg, .hrk-menu svg {
+    min-width: 1.5rem;
+}
+
+.hrk-navbar > label {
+    max-width: 15%;
+}
+
+/* media query non-responsive for big screen */
+@media screen and (min-width: 75rem) {
+
+    .hrk-bar-extramenu > a,
+    .hrk-bar-extramenu > span.hrk-a,
+    .hrk-bar-item > a,
+    .hrk-bar-item > span.hrk-a,
+    .hrk-menu > .hrk-tree > .hrk-tree-node > a,
+    .hrk-menu > .hrk-tree > .hrk-tree-node > span.hrk-a,
+    .hrk-menu .hrk-leaf > * { /* all navbar top bar links get look and feel */
+        width: auto;
+    }
+    .hrk-navbar {
+        flex-flow: row;
+        padding-bottom: 0;
+    }
+    .hrk-navbar > label {
+        max-width: unset;
+    }
+    .hrk-navbar > .hrk-menu > .hrk-tree > .hrk-toggle + label,
+    .hrk-navbar > .hrk-menu > .hrk-tree > .hrk-toggle-close-menu > label {
+        width: unset;
+    }
+    .hrk-navbar > .hrk-menu > .hrk-tree > label {
+        margin-left: -1.85rem;
+    }
+    .hrk-toggle-close-menu {
+        /*    position: absolute;
+            right: -1rem;
+        /*    z-index: 10;
+            padding-top: .5rem;*/
+        align-self: center;
+    }
+
+    .hrk-menu-responsive {
+        position: static;
+    }
+    .hrk-menu {
+        display: flex;
+        flex-basis: auto;
+        flex-direction: row;
+        border: none !important;
+        padding-bottom: 0;
+        border-radius: 0;
+        width: auto;
+    }
+    .hrk-navbar > .hrk-menu-responsive {
+        position: static;
+    }
+    .hrk-bar-extramenu,
+    .hrk-menu > .hrk-tree:hover > .hrk-tree-node > .hrk-tree-children {
+        display: flex;
+        flex-direction: column;
+        /*position: absolute;*/
+    }
+    .hrk-bar-toggle + label {
+        display: none !important;
+    }
+    .hrk-tree-children {
+        position: absolute;
+        /*width: 16rem;*/
+        /*border-radius: 0 .5rem .5rem .5rem;*/
+    }
+    .hrk-tree-children .hrk-tree-children {
+        position: relative;
+        flex: 1 100%;
+        top: 0;
+    }
+    .hrk-tree-node, .hrk-leaf,
+    .hrk-menu > .hrk-tree > .hrk-tree-node > span.hrk-a { /* top-level inactive item */
+        width: auto;
+    }
+    .hrk-bar-last {
+        justify-content: flex-end;
+    }
+    .hrk-bar-last > .hrk-tree > .hrk-tree-node > .hrk-tree-children {
+        position: absolute;
+    }
+
+    .hrk-bar-extramenu {
+        order: 5;
+    }
+    .hrk-menu > *:first-child {
+        margin-left: 0;
+    }
+    .hrk-menu > *:last-child {
+        margin-right: 0;
+    }
+}
