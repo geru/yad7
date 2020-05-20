@@ -4,6 +4,7 @@
  * Date: 4/29/20
  * Time: 12:27 PM
  * hard redirects and anti-hacking measures go here.
+ * rename this file to "prebootstrap.inc" to enable it. It gets included at the end of the default settings.php
  */
 global $base_url;
 
@@ -46,7 +47,6 @@ function _spam_prefilter() {
     ],
     'banpattern' => [
       '/q=user\/register/',
-      '/recumbent-gearing-calculator\?q=/',
       '/aspx$/',
     ],
     'selfonly' => array(
@@ -83,7 +83,6 @@ function _spam_prefilter() {
         '198.27.80.144', // ovhhosting
         '212.237.19.200',
         '216.97.12.86',
-        // '98.255.6.202', // 12 via los arboles for testing
       ),
       0xffffff00 => array(
         '35.153.226.0', // amazon
@@ -111,7 +110,6 @@ function _spam_prefilter() {
         '213.159.38.0', // 180218 213.159.38.90
         '216.244.66.0', // wowrack.com
         '217.182.132.0', // OVH SAS added 5/19/17
-        // '24.23.24.0', Sac shop
         // '207.46.13.0', bingbot
         // '127.0.0.0',
       ),
@@ -136,7 +134,6 @@ function _spam_prefilter() {
         '54.197.0.0', // amazon
         '54.235.0.0', // amazon
         '54.237.0.0', // amazon
-        // '98.255.0.0', // 12 via los arboles
 //        '104.131.73.215', // digitalocean 170406
 //        '104.131.88.40', // digitialocean 170528
         '104.131.0.0', // digitalocean
