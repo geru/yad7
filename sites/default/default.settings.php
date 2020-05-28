@@ -659,7 +659,3 @@ $conf['file_scan_ignore_directories'] = array(
   'node_modules',
   'bower_components',
 );
-
-if( file_exists( "prebootstrap.inc" ) ) {
-  include_once "prebootstrap.inc";
-}

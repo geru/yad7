@@ -829,6 +829,9 @@ function drupal_settings_initialize() {
   }
   $prefix = ini_get('session.cookie_secure') ? 'SSESS' : 'SESS';
   session_name($prefix . substr(hash('sha256', $session_name), 0, 32));
+  if (file_exists(DRUPAL_ROOT . '/' . conf_path() . '/prebootstrap.inc')) {
+    include_once DRUPAL_ROOT . '/' . conf_path() . '/prebootstrap.inc';
+  }
 }
 
 /**
