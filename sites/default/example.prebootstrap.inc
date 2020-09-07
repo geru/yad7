@@ -42,12 +42,16 @@ function _spam_prefilter() {
   $spam = array(
     'banoutright' => [
       '/wp-login.php',
-
       // '/node/add'
     ],
     'banpattern' => [
       '/q=user\/register/',
+      '/q=user\/login/',
       '/aspx$/',
+    ],
+    'banrefer' => [
+      '/wp-login.php/', // WordPress vulnerability
+      '/administrator/' // Joomla vulnerability
     ],
     'selfonly' => array(
       '/user', '/user/login', '/user/register', '/user/password', '/contact'
@@ -220,10 +224,9 @@ function _spam_prefilter() {
   // filter by pattern in path
   foreach ($spam['banpattern'] as $pattern) {
     if (preg_match($pattern, $path)) {
-      return -1;
+      return -2;
     }
   }
-
   // ban certain IP's outright
   $longremote = ip2long($remoteip);
   foreach ($spam['ipban'] as $mask => $bannedIPs) {
@@ -241,13 +244,20 @@ function _spam_prefilter() {
   $referpath = implode('/', $substrings);
   // referer domain must be self
   if (in_array($path, $spam['selfonly']) && (empty($referdomain) || !stristr($referdomain, $_SERVER['HTTP_HOST']))) {
-    return -1;
+    return -3;
   }
 
   // referring path must be particular
   if (isset($spam['referpath'][$path]) && !preg_match($spam['referpath'][$path], $referpath)) {
-    return -1;
+    return -4;
   }
+  // filter by pattern in path
+  foreach ($spam['banrefer'] as $pattern) {
+    if (preg_match($pattern, $referpath)) {
+      return -5;
+    }
+  }
+
   return FALSE;
 } // end of _spamprefilter() function
 
@@ -267,13 +277,20 @@ function _blocking_action() {
 }
 
 /* filter certain spam situations outright */
-switch ( $type = _spam_prefilter() ) {
-  case -1:
+if( $type = _spam_prefilter() ) {
+  if( $type < 0 ){
+    watchdog('precheck banned', '%bancode ip(%ip) path(%path) referer(%referer)',
+      ['%bancode' => $type,
+        '%ip' => ip_address(),
+        '%path' => $_SERVER['REQUEST_URI'],
+        '%referer' => $_SERVER['HTTP_REFERER']]);
     __superfast_404_noexceptions();
-    break;
-  case 0:
-    break;
-  default:
+  } else {
+    watchdog('precheck blocked', '%bancode ip(%ip) path(%path) referer(%referer)',
+      ['%bancode' => $type,
+        '%ip' => ip_address(),
+        '%path' => $_SERVER['REQUEST_URI'],
+        '%referer' => $_SERVER['HTTP_REFERER']]);
     _blocking_action();
-    break;
+  }
 }
