@@ -41,7 +41,6 @@
 .hrk-bar {
     display: flex;
     flex-flow: row wrap;
-/*    z-index: 900;*/
 }
 .hrk-bar::after {
     clear: none;
@@ -62,7 +61,6 @@
     flex: 1 100%;
     flex-direction: column;
     background: inherit;
-    /* z-index: 50; */
 }
 .hrk-menu-perm {
     display: flex;
@@ -71,7 +69,7 @@
 .hrk-toggle + label {
     display: inline-block;
     cursor: pointer;
-    width: 1.5rem;
+    width: 1rem;
     align-self: flex-start;
     padding: .5rem;
     text-align: center;
@@ -80,7 +78,6 @@
 }
 .hrk-bar-toggle:checked ~ .hrk-menu-responsive {  /* the responsive menu is labeled with class hrk-menu */
     display: flex;
-    /* background: inherit; */
     z-index: 10;
     border: thin solid;
 }
@@ -89,7 +86,6 @@
 }
 .hrk-bar-perm, .hrk-bar-toggle + label { /* nonresponsive parts of the menu are just flex */
     flex: auto;
-    /*  z-index: 100;  allow it to be forefront even if some special effects are happening */
 }
 .hrk-bar-first {
     order: -1;
@@ -100,7 +96,6 @@
 .hrk-bar-toggle + label { /* give the navbar hamburger some size and margins and make the cursor point into */
     display: inline;
     cursor: pointer;
-    /*font-size: 1.5rem;*/
     padding: .75rem 1rem;
     width: unset;
 }
@@ -109,7 +104,6 @@
 }
 .hrk-navbar > .hrk-menu-responsive {
     position: absolute;
-    /* z-index: 990 !important; */
 }
 .hrk-navbar > .hrk-menu {
     top: 3rem;
@@ -121,7 +115,6 @@
 .hrk-bar-extramenu li {
     list-style-type: none;
 }
-/*.hrk-bar-extramenu > a, .hrk-bar-extramenu > span.hrk-a,*/
 .hrk-navbar > .hrk-bar-item > a, .hrk-navbar > .hrk-bar-item > span.hrk-a { /* all navbar top bar links get look and feel */
     margin-top: -.3rem;
     padding: 1rem;
@@ -135,22 +128,18 @@
     display: inline-block;
 }
 .hrk-menu > .hrk-leaf > * {
-    padding: 0.5rem;
+    padding: 0.5rem 0;
 }
 /* dropdown menu containers */
-.hrk-menu > .hrk-tree > .hrk-tree-node .hrk-tree-children > .hrk-tree > .hrk-tree-node,
-.hrk-menu > .hrk-tree > .hrk-tree-node .hrk-leaf {
-   /* min-width: 80%; */
+.hrk-menu > .hrk-tree > .hrk-tree-node .hrk-tree-children > .hrk-tree > .hrk-tree-node {
+    width: 100%;
 }
-/* dropdown menu items
-.hrk-menu > .hrk-tree > .hrk-tree-node .hrk-tree-children > .hrk-tree > .hrk-tree-node > *,
-.hrk-menu > .hrk-tree > .hrk-tree-node .hrk-leaf > * {
-    min-width: 80%;
-} */
+.hrk-menu > .hrk-tree > .hrk-tree-node .hrk-leaf {
+/*    width: 100%; */
+}
 .hrk-bar-item > a:hover,
 .hrk-bar-item > span.hrk-a:hover {
     background: rgba(120, 120, 120, .2);
-    /* border-radius: .5rem .5rem .5rem .5rem; */
 }
 .hrk-tree-node .hrk-tree-children a,
 .hrk-tree-node .hrk-tree-children span.hrk-a,
@@ -164,7 +153,12 @@
 }
 .hrk-tree-node .hrk-leaf a,
 .hrk-tree-node .hrk-leaf span.hrk-a {
+    margin-left: .3rem;
     padding: .5rem .7rem;
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
 }
 .hrk-tree-node .hrk-tree > .hrk-tree-node > a,
 .hrk-tree-node .hrk-tree > .hrk-tree-node > span.hrk-a,
@@ -173,6 +167,9 @@
 .hrk-menu > .hrk-tree > .hrk-tree-node > a,
 .hrk-menu > .hrk-tree > .hrk-tree-node > span.hrk-a { /* all navbar lower bar links get look and feel */
     padding: .5rem .5rem .5rem 0;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
 }
 .hrk-navbar > label:hover,
 .hrk-tree:hover,
@@ -181,18 +178,15 @@
 .hrk-menu .hrk-leaf:hover,
 .hrk-bar > label:hover {
     background: rgba(120,120,120,.2);
-    border-radius: 0.5rem .5rem 0.5rem 0;
 }
 .hrk-navbar > .hrk-menu > .hrk-tree > label:hover {
     background: rgba(220,220,220,1); /* label needs to be opaque to cover close toggle */
-    border-radius: 0.5rem .5rem 0.5rem 0;
 }
 .hrk-tree-node > .hrk-tree-children {
     margin-left: -1rem;
 }
 .hrk-menu > .hrk-tree > .hrk-tree-node > .hrk-tree-children {
-    margin-left: -2rem;
-    /* padding-left: 1rem; */
+    margin-left: -1rem;
 }
 
 /* toggle */
@@ -200,17 +194,9 @@
     display: flex;
     flex-flow: row;
     align-items: stretch;
-/*    z-index: 10;*/
-}
-.hrk-navbar > .hrk-menu > .hrk-tree > .hrk-tree-node > a,
-.hrk-navbar > .hrk-menu > .hrk-tree > .hrk-tree-node > span.hrk-a,
-.hrk-navbar > .hrk-menu > .hrk-tree > label,
-.hrk-navbar > .hrk-menu > .hrk-leaf > * {
-    /*   padding-top: 1rem;
-    border-radius: .5rem; */
 }
 .hrk-navbar > .hrk-menu > .hrk-tree > label {
-    margin-left: -2.5rem;
+    margin-left: -2rem;
     background: rgba(250,250,250,1);
 }
 .hrk-tree-node, .hrk-leaf {
@@ -221,8 +207,7 @@
 }
 .hrk-bar-extramenu ul,
 .hrk-tree-children > .hrk-leaf {
-    margin-left: 1.85rem;
-/*    min-width: 10rem;*/
+    padding-left: 1rem;
 }
 .hrk-menu > .hrk-leaf {
     margin-left: 2rem;
@@ -237,14 +222,15 @@
     background: rgba(255,255,255,.98);
     border: .1rem solid #eee;
 }
-.hrk-menu > .hrk-tree > .hrk-tree-node > .hrk-tree-children,
-.hrk-bar-item .hrk-bar-extramenu,
-.hrk-menu-active {
-    border-radius: 0 .5rem .5rem .5rem;
-}
 .hrk-bar-last > .hrk-tree > .hrk-tree-node > .hrk-tree-children {
-    position: fixed;
-    right: 1rem;
+    position: absolute;
+    /* right: 0; */
+    padding-right: .5rem;
+    padding-left: .5rem;
+}
+.hrk-navbar > .hrk-bar-perm.hrk-bar-last > .hrk-tree > .hrk-tree-node > .hrk-tree-children,
+.hrk-bar-last > .hrk-tree > .hrk-tree-node > .hrk-tree-children:last-child {
+    right: 0;
 }
 
 .hrk-bar-extramenu,
@@ -258,11 +244,9 @@
     z-index: 50;
 }
 .hrk-toggle-close-menu + input[type="radio"].hrk-toggle:checked + label {
-    /* display: none; */
     z-index: 50;
 }
 .hrk-toggle-close-menu > input[type="radio"].hrk-toggle + label {
-    /* margin-left: -1.85rem; */
 }
 .hrk-toggle-close-menu {
     align-self: flex-start;
@@ -355,6 +339,25 @@ input[type="radio"].hrk-toggle:checked + label {
 
 /* media query non-responsive for big screen */
 @media screen and (min-width: 75rem) {
+    .hrk-menu .hrk-tree-children > .hrk-leaf {
+        padding-left: 1.2rem;
+    }
+    .hrk-bar-extramenu ul,
+    .hrk-navbar .hrk-tree-children > .hrk-leaf {
+        padding-left: 1.15rem;
+    }
+    .hrk-menu > .hrk-tree > .hrk-tree-node > .hrk-tree-children {
+        margin-left: -2rem;
+    }
+    .hrk-tree-node .hrk-leaf a,
+    .hrk-tree-node .hrk-leaf span.hrk-a {
+        margin-left: 0rem;
+        padding: .5rem .8rem;
+    }
+    .hrk-menu > .hrk-leaf {
+        padding: 0 .75rem;
+        margin-left: 0;
+    }
 
     .hrk-bar-extramenu > a,
     .hrk-bar-extramenu > span.hrk-a,
@@ -374,16 +377,12 @@ input[type="radio"].hrk-toggle:checked + label {
     }
     .hrk-navbar > .hrk-menu > .hrk-tree > .hrk-toggle + label,
     .hrk-navbar > .hrk-menu > .hrk-tree > .hrk-toggle-close-menu > label {
-        width: unset;
+        width: 1rem;
     }
     .hrk-navbar > .hrk-menu > .hrk-tree > label {
-        margin-left: -1.85rem;
+        margin-left: -2rem;
     }
     .hrk-toggle-close-menu {
-        /*    position: absolute;
-            right: -1rem;
-        /*    z-index: 10;
-            padding-top: .5rem;*/
         align-self: center;
     }
 
@@ -406,15 +405,12 @@ input[type="radio"].hrk-toggle:checked + label {
     .hrk-menu > .hrk-tree:hover > .hrk-tree-node > .hrk-tree-children {
         display: flex;
         flex-direction: column;
-        /*position: absolute;*/
     }
     .hrk-bar-toggle + label {
         display: none !important;
     }
     .hrk-tree-children {
         position: absolute;
-        /*width: 16rem;*/
-        /*border-radius: 0 .5rem .5rem .5rem;*/
     }
     .hrk-tree-children .hrk-tree-children {
         position: relative;
