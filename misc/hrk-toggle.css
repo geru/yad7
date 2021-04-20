@@ -35,6 +35,9 @@
 .hrk-padding-medium {
     padding: 1rem;
 }
+.hrk-hidden {
+    display: none !important;
+}
 
 
 /* responsive navbar */
@@ -50,7 +53,8 @@
     flex-flow: row wrap;
     align-items: center;
     position: relative;
-    background: rgba(250,250,250,.98)
+    background: rgba(250,250,250,.98);
+    justify-content: space-between;
 }
 .hrk-toggle { /* the input checkbox or radio that a submenu is attached to. navbar toggle also gets hrk-bar-toggle class */
     display: none;
@@ -84,7 +88,7 @@
 .hrk-bar-toggle + label:before { /* make sure the navbar toggle and label are a block */
     display: block !important;
 }
-.hrk-bar-perm, .hrk-bar-toggle + label { /* nonresponsive parts of the menu are just flex */
+.hrk-bar-toggle + label { /* nonresponsive parts of the menu are just flex */
     flex: auto;
 }
 .hrk-bar-first {
@@ -123,7 +127,7 @@
 .hrk-menu > .hrk-tree > .hrk-tree-node > a, .hrk-menu > .hrk-tree > .hrk-tree-node > span.hrk-a,
 .hrk-menu .hrk-leaf > *,
 .hrk-bar-item a, .hrk-bar-item span.hrk-a {
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    /*font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;*//*this line doesn't play nicely with uikit, causes oscillation*/
     text-decoration: none;
     display: inline-block;
 }
@@ -133,9 +137,6 @@
 /* dropdown menu containers */
 .hrk-menu > .hrk-tree > .hrk-tree-node .hrk-tree-children > .hrk-tree > .hrk-tree-node {
     width: 100%;
-}
-.hrk-menu > .hrk-tree > .hrk-tree-node .hrk-leaf {
-/*    width: 100%; */
 }
 .hrk-bar-item > a:hover,
 .hrk-bar-item > span.hrk-a:hover {
@@ -181,12 +182,6 @@
 }
 .hrk-navbar > .hrk-menu > .hrk-tree > label:hover {
     background: rgba(220,220,220,1); /* label needs to be opaque to cover close toggle */
-}
-.hrk-tree-node > .hrk-tree-children {
-    margin-left: -1rem;
-}
-.hrk-menu > .hrk-tree > .hrk-tree-node > .hrk-tree-children {
-    margin-left: -1rem;
 }
 
 /* toggle */
@@ -339,6 +334,9 @@ input[type="radio"].hrk-toggle:checked + label {
 
 /* media query non-responsive for big screen */
 @media screen and (min-width: 75rem) {
+    .hrk-bar-perm {
+        flex: auto;
+    }
     .hrk-menu .hrk-tree-children > .hrk-leaf {
         padding-left: 1.2rem;
     }
@@ -351,7 +349,7 @@ input[type="radio"].hrk-toggle:checked + label {
     }
     .hrk-tree-node .hrk-leaf a,
     .hrk-tree-node .hrk-leaf span.hrk-a {
-        margin-left: 0rem;
+        margin-left: 0;
         padding: .5rem .8rem;
     }
     .hrk-menu > .hrk-leaf {
