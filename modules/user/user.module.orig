@@ -1935,14 +1935,13 @@ function user_menu_link_alter(&$link) {
 
 /**
  * Implements hook_translated_menu_link_alter().
-
+ */
 function user_translated_menu_link_alter(&$link) {
   // Hide the "User account" link for anonymous users.
   if ($link['link_path'] == 'user' && $link['module'] == 'system' && !$GLOBALS['user']->uid) {
     $link['hidden'] = 1;
   }
 }
-*/
 
 /**
  * Implements hook_admin_paths().

@@ -67,6 +67,7 @@
     background: inherit;
 }
 .hrk-menu-perm {
+    flex: auto;
     display: flex;
     flex-direction: row;
 }
@@ -154,8 +155,8 @@
 }
 .hrk-tree-node .hrk-leaf a,
 .hrk-tree-node .hrk-leaf span.hrk-a {
-    margin-left: .3rem;
-    padding: .5rem .7rem;
+    /* margin-left: .3rem; */
+    padding: .5rem 1rem;
     display: inline-block;
     width: 100%;
     height: 100%;
@@ -198,15 +199,20 @@
     display: inline-block;
     vertical-align: middle;
     -webkit-backface-visibility: hidden;
+    width: 100%;
     align-self: flex-start;
+    box-sizing: border-box;
+}
+.hrk-menu.hrk-bar-perm > .hrk-child {
+    width: inherit;
 }
 .hrk-bar-extramenu ul,
 .hrk-tree-children > .hrk-leaf {
     padding-left: 1rem;
 }
 .hrk-menu > .hrk-leaf {
-    margin-left: 2rem;
-    margin-right: .5rem;
+    padding-left: 2rem;
+    /* margin-right: .5rem; */
 }
 .hrk-bar-extramenu,
 .hrk-tree-children {
@@ -321,7 +327,7 @@ input[type="radio"].hrk-toggle:checked + label {
     z-index: 50;
 }
 .hrk-toggle + label {
-    font-size: 100%;
+    font-size: 99%; /* if 100% bumps it out by a pixel, don't know why */
     color: rgba(120, 120, 120, .8);
 }
 .hrk-navbar svg, .hrk-menu svg {
@@ -330,6 +336,15 @@ input[type="radio"].hrk-toggle:checked + label {
 
 .hrk-navbar > label {
     max-width: 15%;
+}
+.hrk-menu-responsive {
+    width: auto;
+}
+.hrk-menu-responsive > *,
+.hrk-tree-node.hrk-level-0 .hrk-tree-children > *,
+.hrk-menu-responsive > .hrk-leaf > * {
+    width: 100%;
+    box-sizing: border-box;
 }
 
 /* media query non-responsive for big screen */
@@ -396,6 +411,9 @@ input[type="radio"].hrk-toggle:checked + label {
         border-radius: 0;
         width: auto;
     }
+    .hrk-bar .hrk-leaf {
+        width: auto;
+    }
     .hrk-navbar > .hrk-menu-responsive {
         position: static;
     }
@@ -415,8 +433,8 @@ input[type="radio"].hrk-toggle:checked + label {
         flex: 1 100%;
         top: 0;
     }
-    .hrk-tree-node, .hrk-leaf,
-    .hrk-menu > .hrk-tree > .hrk-tree-node > span.hrk-a { /* top-level inactive item */
+    .hrk-tree-node,
+    .hrk-menu > .hrk-tree > .hrk-tree-node > * { /* top-level inactive item */
         width: auto;
     }
     .hrk-bar-last {
@@ -434,5 +452,12 @@ input[type="radio"].hrk-toggle:checked + label {
     }
     .hrk-menu > *:last-child {
         margin-right: 0;
+    }
+    .hrk-menu-responsive > *{
+        width: auto;
+    }
+    .hrk-menu-responsive > .hrk-leaf > * {
+        width: 100%;
+        box-sizing: border-box;
     }
 }
