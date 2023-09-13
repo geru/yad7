@@ -18,7 +18,7 @@
 }
 .hrk-flex-column { /* define horizontal flex */
     display: flex;
-    flex-direction: column;
+    flex-direction: column !important;
 }
 .hrk-flex-main-item {
     flex: 1 100%;
@@ -96,6 +96,7 @@
     order: -1;
 }
 .hrk-bar-last { /* move a navbar item to the end of the lst */
+    justify-content: flex-end;
     order: 100;
 }
 .hrk-bar-toggle + label { /* give the navbar hamburger some size and margins and make the cursor point into */
@@ -363,7 +364,8 @@ input[type="radio"].hrk-toggle:checked + label {
         margin-left: -2rem;
     }
     .hrk-tree-node .hrk-leaf a,
-    .hrk-tree-node .hrk-leaf span.hrk-a {
+    .hrk-tree-node .hrk-leaf span.hrk-a,
+    .hrk-tree-node .hrk-leaf > span {
         margin-left: 0;
         padding: .5rem .8rem;
     }
@@ -376,7 +378,7 @@ input[type="radio"].hrk-toggle:checked + label {
     .hrk-bar-extramenu > span.hrk-a,
     .hrk-bar-item > a,
     .hrk-bar-item > span.hrk-a,
-    .hrk-menu > .hrk-tree > .hrk-tree-node > a,
+    /* .hrk-menu > .hrk-tree > .hrk-tree-node > a, */
     .hrk-menu > .hrk-tree > .hrk-tree-node > span.hrk-a,
     .hrk-menu .hrk-leaf > * { /* all navbar top bar links get look and feel */
         width: auto;
@@ -412,7 +414,7 @@ input[type="radio"].hrk-toggle:checked + label {
         width: auto;
     }
     .hrk-bar .hrk-leaf {
-        width: auto;
+        /* width: 100%; */ /* # auto; */
     }
     .hrk-navbar > .hrk-menu-responsive {
         position: static;
@@ -435,10 +437,7 @@ input[type="radio"].hrk-toggle:checked + label {
     }
     .hrk-tree-node,
     .hrk-menu > .hrk-tree > .hrk-tree-node > * { /* top-level inactive item */
-        width: auto;
-    }
-    .hrk-bar-last {
-        justify-content: flex-end;
+        /* width: auto; */
     }
     .hrk-bar-last > .hrk-tree > .hrk-tree-node > .hrk-tree-children {
         position: absolute;
