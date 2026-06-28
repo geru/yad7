@@ -382,6 +382,34 @@ function image_gd_create_tmp(stdClass $image, $width, $height) {
 }
 
 /**
+ * Get allowed extensions
+ *
+ * @return string[]
+ */
+function image_gd_supported_extensions() {
+  static $extensions = NULL;
+  if ($extensions === NULL) {
+    $extensions = [];
+    $info = gd_info();
+    foreach ($info as $infostr => $supported) {
+      $tokens = explode(' ', $infostr);
+      $support = array_pop($tokens);
+      if( ($support == "Support") && $supported ) {
+        $type = array_shift($tokens);
+        $constant = strtoupper( "IMAGETYPE_$type" );
+        if( defined($constant)) {
+          $extensions[ constant($constant) ] = strtolower($type);
+        }
+      }
+    }
+    if( in_array('jpeg', $extensions)) {
+      $extensions[-1] = 'jpg';
+    }
+  }
+  return $extensions;
+}
+
+/**
  * Get details about an image.
  *
  * @param $image
@@ -401,7 +429,7 @@ function image_gd_get_info(stdClass $image) {
   $data = @getimagesize($image->source);
 
   if (isset($data) && is_array($data)) {
-    $extensions = array('1' => 'gif', '2' => 'jpg', '3' => 'png');
+    $extensions = image_gd_supported_extensions();
     $extension = isset($extensions[$data[2]]) ?  $extensions[$data[2]] : '';
     $details = array(
       'width'     => $data[0],

@@ -812,6 +812,8 @@ function theme_file_link($variables) {
     'image/jpeg' => t('Image icon'),
     'image/png' => t('Image icon'),
     'image/gif' => t('Image icon'),
+    'image/webp' => t('Image icon'),
+    'image/avif' => t('Image icon'),
     'application/zip' => t('Package icon'),
     'text/html' => t('HTML icon'),
     'text/plain' => t('Plain text icon'),

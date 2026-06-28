@@ -1459,7 +1459,7 @@ function file_space_used($uid = NULL, $status = FILE_STATUS_PERMANENT) {
  *   An optional, associative array of callback functions used to validate the
  *   file. See file_validate() for a full discussion of the array format.
  *   If no extension validator is provided it will default to a limited safe
- *   list of extensions which is as follows: "jpg jpeg gif png txt
+ *   list of extensions which is as follows: extensions supported by toolkit and "jpeg txt
  *   doc xls pdf ppt pps odt ods odp". To allow all extensions you must
  *   explicitly set the 'file_validate_extensions' validator to an empty array
  *   (Beware: this is not safe and should only be allowed for trusted users, if
@@ -1552,7 +1552,7 @@ function file_save_upload($form_field_name, $validators = array(), $destination 
   else {
     // No validator was provided, so add one using the default list.
     // Build a default non-munged safe list for file_munge_filename().
-    $extensions = 'jpg jpeg gif png txt doc xls pdf ppt pps odt ods odp';
+    $extensions = implode(' ', image_supported_extensions()) . ' txt doc xls pdf ppt pps odt ods odp';
     $validators['file_validate_extensions'] = array();
     $validators['file_validate_extensions'][0] = $extensions;
   }
@@ -1862,7 +1862,8 @@ function file_validate_is_image(stdClass $file) {
 
   $info = image_get_info($file->uri);
   if (!$info || empty($info['extension'])) {
-    $errors[] = t('The image file is invalid or the image type is not allowed. Allowed types: %allowed_types', array('%allowed_types' => t('Only JPEG, PNG and GIF images are allowed.')));
+    $errors[] = t('The image file is invalid or the image type is not allowed. Allowed types: %allowed_types',
+      array('%allowed_types' => t(implode(', ', image_supported_extensions()))));
   }
 
   return $errors;

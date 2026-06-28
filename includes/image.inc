@@ -103,7 +103,7 @@ function image_toolkit_invoke($method, stdClass $image, array $params = array())
 /**
  * Gets details about an image.
  *
- * Drupal supports GIF, JPG and PNG file formats when used with the GD
+ * Drupal supports GD file formats
  * toolkit, and may support others, depending on which toolkits are
  * installed.
  *
@@ -141,6 +141,23 @@ function image_get_info($filepath, $toolkit = FALSE) {
   }
 
   return $details;
+}
+
+/**
+ * @param $toolkit
+ * @return false|mixed
+ */
+function image_supported_extensions($toolkit=FALSE) {
+  static $extensions=[];
+  if (!$toolkit) {
+    $toolkit = image_get_toolkit();
+  }
+  if (!isset($extensions[$toolkit])) {
+    $dummyimage = new stdClass();
+    $dummyimage->toolkit = $toolkit;
+    $extensions[$toolkit] = image_toolkit_invoke("supported_extensions", $dummyimage );
+  }
+  return $extensions[$toolkit];
 }
 
 /**
