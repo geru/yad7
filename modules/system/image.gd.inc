@@ -437,6 +437,11 @@ function image_gd_get_info(stdClass $image) {
       'extension' => $extension,
       'mime_type' => $data['mime'],
     );
+    if( ($extension == 'avif') && !$details['width'] && !$details['height'] ) {
+      $gdimg = imagecreatefromavif($image->source);
+      $details['width'] = imagesx($gdimg);
+      $details['height'] = imagesy($gdimg);
+    }
   }
 
   return $details;
